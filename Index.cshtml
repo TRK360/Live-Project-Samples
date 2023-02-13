@@ -1,0 +1,84 @@
+@model IEnumerable<TheatreCMS3.Areas.Prod.Models.CalendarEvent>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="calendarevents-index-container">
+
+    <h2 class="calendarevents-index--header">Index</h2>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-default active calendarevents-index--button" onclick="location.href='@Url.Action("Create")'">Create New Event</button>
+        </div>
+    </div>
+
+    <table class="table calendarevents-index--table">
+        <tr>
+            <th class="calendarevents-index--headersmall">
+                @Html.DisplayNameFor(model => model.StartDate)
+
+            </th>
+            <th class="calendarevents-index--header">
+                @Html.DisplayNameFor(model => model.Title)
+                <br />
+                @Html.DisplayNameFor(model => model.StartDate)
+                @Html.DisplayNameFor(model => model.EndDate)
+
+                @Html.DisplayNameFor(model => model.StartTime)
+
+                @Html.DisplayNameFor(model => model.EndTime)
+                <br />
+
+                @Html.DisplayNameFor(model => model.Description)
+
+            </th>
+
+
+
+            
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td class="calendarevents-index--contentsmall">
+            <div class="calendarevents-index-largest">
+                @Html.DisplayFor(modelItem => item.StartDate.Day)
+                <div class="calendarevents-index-smallest">
+                    @item.StartDate.ToString("MMM").ToUpper()
+                </div>
+            </div>
+        </td>
+
+        <td class="calendarevents-index--content">
+            <div class="calendarevents-index-large">
+                @Html.DisplayFor(modelItem => item.Title)
+                <br />
+            </div>
+            <div class="calendarevents-index-medium">
+
+                @item.StartDate.ToString("ddd"),
+
+                @*@(String.IsNullOrEmpty(item.StartTime.ToString())?item.StartDate.ToString("MMM dd"): item.StartTime.Value.ToString("h:mm") +"  -  ")
+            @(String.IsNullOrEmpty(item.EndTime.ToString())? "  -  " + item.EndDate.ToString("ddd") +", "+ item.EndDate.ToString("MMM dd") : item.EndTime.Value.ToString("h:mm tt"))*@
+                @(item.StartTime != null && item.EndTime != null ? item.StartTime.Value.ToString("h:mm") + "  -  " + item.EndTime.Value.ToString("h:mm tt") : item.StartDate.ToString("MMM dd") + "  -  " + item.EndDate.ToString("ddd") + ", " + item.EndDate.ToString("MMM dd"))
+            </div>
+
+            <div class="calendarevents-index-small">
+
+                @item.Description
+            </div>
+        </td>
+    </tr> 
+
+
+        }
+    </table>
+        
+
+</div>
